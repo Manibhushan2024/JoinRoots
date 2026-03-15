@@ -372,31 +372,27 @@
                 <div class="hc-header">
                     <div class="hc-avatar"><i class="fas fa-user-md"></i></div>
                     <div>
-                        <div class="hc-name">Dr. Priya Sharma</div>
-                        <div class="hc-role">Child Psychologist & Lead Therapist</div>
+                        <div class="hc-name">Ms. Deepali Sahani</div>
+                        <div class="hc-role">Speech-Language Pathologist & Lead Therapist</div>
                     </div>
                     <div class="hc-badge">● Available</div>
                 </div>
                 <div class="hc-services">
                     <div class="hc-service">
-                        <div class="hc-service-icon bg-green-soft c-green"><i class="fas fa-brain"></i></div>
-                        <span>Child Counselling</span>
-                        <span class="price">₹800</span>
+                        <div class="hc-service-icon bg-green-soft c-green"><i class="fas fa-check-circle"></i></div>
+                        <span>Evidence-Based Therapies</span>
                     </div>
                     <div class="hc-service">
-                        <div class="hc-service-icon bg-blue-soft c-blue"><i class="fas fa-users"></i></div>
-                        <span>Family Therapy</span>
-                        <span class="price">₹1,000</span>
+                        <div class="hc-service-icon bg-blue-soft c-blue"><i class="fas fa-user-md"></i></div>
+                        <span>Expert Child Specialists</span>
                     </div>
                     <div class="hc-service">
-                        <div class="hc-service-icon bg-purple-soft c-purple"><i class="fas fa-hands-helping"></i></div>
-                        <span>Special Needs Support</span>
-                        <span class="price">₹1,200</span>
+                        <div class="hc-service-icon bg-purple-soft c-purple"><i class="fas fa-laptop-medical"></i></div>
+                        <span>Online & In-Clinic Sessions</span>
                     </div>
                     <div class="hc-service">
-                        <div class="hc-service-icon bg-orange-soft c-orange"><i class="fas fa-graduation-cap"></i></div>
-                        <span>Parent Coaching</span>
-                        <span class="price">₹700</span>
+                        <div class="hc-service-icon bg-orange-soft c-orange"><i class="fas fa-child"></i></div>
+                        <span>Personalized Care Plans</span>
                     </div>
                 </div>
             </div>
