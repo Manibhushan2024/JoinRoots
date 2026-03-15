@@ -45,7 +45,7 @@ Route::resource('appointments', AppointmentController::class);
 // Patient Routes
 Route::resource('patients', PatientController::class);
 
-Auth::routes();
+Auth::routes(['reset' => false]);
 
 // OTP Password Reset Routes
 Route::get('password/otp', [OtpPasswordResetController::class, 'showRequestForm'])->name('password.request');
