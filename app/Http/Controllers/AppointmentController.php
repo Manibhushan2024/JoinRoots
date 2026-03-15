@@ -3,183 +3,164 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
-use App\Models\Patient;
+use App\Models\Service;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AppointmentConfirmed;
 
 class AppointmentController extends Controller
 {
-    public function index()
-    {
-        $appointments = Appointment::with('patient')->orderBy('start_datetime', 'desc')->get();
-        return view('appointments.index', compact('appointments'));
-    }
-
     public function createPublic()
     {
-        return view('appointments.create-public');
+        $services = Service::all();
+        $doctors = \App\Models\Doctor::all();
+        return view('appointments.index', compact('services', 'doctors'));
     }
 
     public function storePublic(Request $request)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'appointment_date' => 'required|date',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:15',
+            'service_id' => 'required|exists:services,id',
+            'doctor_id' => 'required|exists:doctors,id',
+            'appointment_date' => 'required|date|after_or_equal:today',
             'appointment_time' => 'required',
             'mode' => 'required|in:online,offline',
         ]);
 
-        // Find or create patient
-        $patient = Patient::firstOrCreate(
-            ['email' => $data['email']],
-            ['name' => $data['name']]
-        );
+        $service = Service::findOrFail($data['service_id']);
+        $doctor = \App\Models\Doctor::findOrFail($data['doctor_id']);
+
+        // Authenticate or Create User
+        if (Auth::check()) {
+            $user = Auth::user();
+        } else {
+            $user = User::where('email', $data['email'])->first();
+            if (!$user) {
+                // Create user with a random password if doesn't exist. They can reset it later.
+                $user = User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'] ?? null,
+                    'password' => Hash::make(Str::random(12)),
+                ]);
+            }
+            Auth::login($user); // Optionally auto-login if just created/found publicly
+        }
 
         $start = Carbon::parse($data['appointment_date'] . ' ' . $data['appointment_time']);
-        $end = $start->copy()->addHour(); // Default 1 hour duration
+        $end = $start->copy()->addMinutes($service->duration_minutes);
 
         // Check for conflicts (including 15-minute buffer)
-        $conflict = $this->checkAppointmentConflict($start, $end);
+        $conflict = $this->checkAppointmentConflict($start, $end, $doctor->id);
         
         if ($conflict) {
             return redirect()->back()->withErrors([
-                'appointment_time' => 'This time slot is not available. Please choose a different time.'
+                'appointment_time' => 'This time slot is no longer available. Please choose a different time.'
             ])->withInput();
         }
 
-        Appointment::create([
-            'patient_id' => $patient->id,
+        $appointment = Appointment::create([
+            'user_id' => $user->id,
+            'service_id' => $service->id,
+            'doctor_id' => $doctor->id,
             'start_datetime' => $start,
             'end_datetime' => $end,
-            'duration_minutes' => 60,
+            'duration_minutes' => $service->duration_minutes,
             'mode' => $data['mode'],
             'meet_link' => $data['mode'] == 'online' ? 'https://meet.google.com/' . uniqid() : null,
-            'status' => 'pending',
+            'status' => $data['mode'] == 'offline' ? 'confirmed' : 'pending',
         ]);
 
-        return redirect()->route('appointments.index')->with('success', 'Appointment booked successfully!');
-    }
-
-    public function create()
-    {
-        $patients = Patient::all();
-        return view('appointments.create', compact('patients'));
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'patient_id' => 'required|exists:patients,id',
-            'date' => 'required|date',
-            'time' => 'required',
-            'mode' => 'required|in:online,offline',
-        ]);
-
-        $start = Carbon::parse($data['date'] . ' ' . $data['time']);
-        $end = $start->copy()->addHour(); // Default 1 hour duration
-
-        // Check for conflicts (including 15-minute buffer)
-        $conflict = $this->checkAppointmentConflict($start, $end);
-        
-        if ($conflict) {
-            return redirect()->back()->withErrors([
-                'time' => 'This time slot is not available. Please choose a different time.'
-            ])->withInput();
+        // PHASE 5 PREPERATION: Razorpay integration
+        // If mode is online, redirect to payment page
+        if ($data['mode'] == 'online') {
+             return redirect()->route('payment.create', ['appointment_id' => $appointment->id]);
         }
 
-        Appointment::create([
-            'patient_id' => $data['patient_id'],
-            'start_datetime' => $start,
-            'end_datetime' => $end,
-            'duration_minutes' => 60,
-            'mode' => $data['mode'],
-            'meet_link' => $data['mode'] == 'online' ? 'https://meet.google.com/' . uniqid() : null,
-            'status' => 'pending',
+        // If mode is offline, it is confirmed by default and we send email
+        $this->sendConfirmationEmails($user, $service, $doctor, $start, $data['mode']);
+
+        return redirect()->route('profile.show')->with('success', 'Appointment booked successfully!');
+    }
+
+    private function sendConfirmationEmails($user, $service, $doctor, $start, $mode)
+    {
+        $patientHtml = "<h3>Appointment Confirmed!</h3><p>Dear {$user->name},</p>
+            <p>Your <strong>{$mode}</strong> appointment for <strong>{$service->title}</strong> with <strong>Dr. {$doctor->name}</strong> is confirmed.</p>
+            <p><strong>Date & Time:</strong> " . $start->format('M d, Y, h:i A') . "</p>
+            <p>If you need to reschedule, please contact us via WhatsApp at +91 9334892585.</p>
+            <p>Thank you for choosing Connect Roots.</p>";
+
+        \Illuminate\Support\Facades\Http::withToken(env('RESEND_API_KEY'))->post('https://api.resend.com/emails', [
+            'from' => 'onboarding@resend.dev',
+            'to' => $user->email,
+            'subject' => 'Appointment Confirmation - Connect Roots',
+            'html' => $patientHtml
         ]);
 
-        return redirect()->route('appointments.index')->with('success', 'Appointment booked successfully!');
-    }
+        $adminHtml = "<h3>New Booking</h3><p>Patient: {$user->name} ({$user->phone})</p>
+            <p>Service: {$service->title}</p>
+            <p>Doctor: Dr. {$doctor->name}</p>
+            <p>Time: " . $start->format('M d, Y, h:i A') . "</p>";
 
-    public function show(Appointment $appointment)
-    {
-        return view('appointments.show', compact('appointment'));
-    }
-
-    public function edit(Appointment $appointment)
-    {
-        $patients = Patient::all();
-        return view('appointments.edit', compact('appointment', 'patients'));
-    }
-
-    public function update(Request $request, Appointment $appointment)
-    {
-        $data = $request->validate([
-            'patient_id' => 'required|exists:patients,id',
-            'date' => 'required|date',
-            'time' => 'required',
-            'duration_minutes' => 'required|integer|min:15',
-            'mode' => 'required|in:online,offline',
-            'status' => 'required|in:pending,confirmed,cancelled',
+        \Illuminate\Support\Facades\Http::withToken(env('RESEND_API_KEY'))->post('https://api.resend.com/emails', [
+            'from' => 'onboarding@resend.dev',
+            'to' => env('ADMIN_EMAIL', 'manibhushank437@gmail.com'),
+            'subject' => 'New Appointment Booked',
+            'html' => $adminHtml
         ]);
+    }
 
-        $start = Carbon::parse($data['date'] . ' ' . $data['time']);
-        $end = $start->copy()->addMinutes($data['duration_minutes']);
+    public function getAvailableSlots(Request $request)
+    {
+        $date = $request->query('date');
+        $doctorId = $request->query('doctor_id');
 
-        // Check for conflicts (excluding current appointment)
-        $conflict = Appointment::where('id', '!=', $appointment->id)
-            ->where(function ($query) use ($start, $end) {
-                $bufferStart = $start->copy()->subMinutes(15);
-                $bufferEnd = $end->copy()->addMinutes(15);
-                
-                $query->whereBetween('start_datetime', [$bufferStart, $bufferEnd])
-                      ->orWhereBetween('end_datetime', [$bufferStart, $bufferEnd])
-                      ->orWhere(function ($q) use ($bufferStart, $bufferEnd) {
-                          $q->where('start_datetime', '<=', $bufferStart)
-                            ->where('end_datetime', '>=', $bufferEnd);
-                      });
-            })->where('status', '!=', 'cancelled')->exists();
+        if (!$date || !$doctorId) return response()->json([]);
+
+        $slots = [];
+        $startOfDay = Carbon::parse($date . ' 09:00:00');
+        $endOfDay = Carbon::parse($date . ' 18:00:00'); // Last appointment starts at 17:00
         
-        if ($conflict) {
-            return redirect()->back()->withErrors([
-                'time' => 'This time slot conflicts with another appointment. Please choose a different time.'
-            ])->withInput();
+        $currentTime = $startOfDay;
+        while ($currentTime->lt($endOfDay)) {
+            $slotStart = $currentTime->copy();
+            $slotEnd = $slotStart->copy()->addMinutes(60); // Assuming 60 min session for slot generator
+            
+            // Check if this specific slot (with 15 min buffer) overlaps
+            if (!$this->checkAppointmentConflict($slotStart, $slotEnd, $doctorId)) {
+                $slots[] = [
+                    'time_24' => $slotStart->format('H:i'),
+                    'time_12' => $slotStart->format('h:i A')
+                ];
+            }
+            $currentTime->addMinutes(30); // 30 min intervals for the grid
         }
 
-        $appointment->update([
-            'patient_id' => $data['patient_id'],
-            'start_datetime' => $start,
-            'end_datetime' => $end,
-            'duration_minutes' => $data['duration_minutes'],
-            'mode' => $data['mode'],
-            'status' => $data['status'],
-        ]);
-
-        return redirect()->route('appointments.index')->with('success', 'Appointment updated successfully!');
-    }
-
-    public function destroy(Appointment $appointment)
-    {
-        $appointment->delete();
-        return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully!');
+        return response()->json($slots);
     }
 
     /**
      * Check for appointment conflicts with 15-minute buffer
      */
-    private function checkAppointmentConflict($start, $end)
+    private function checkAppointmentConflict($start, $end, $doctorId)
     {
-        // Add 15-minute buffer before and after
         $bufferStart = $start->copy()->subMinutes(15);
         $bufferEnd = $end->copy()->addMinutes(15);
 
-        return Appointment::where(function ($query) use ($bufferStart, $bufferEnd) {
-            $query->whereBetween('start_datetime', [$bufferStart, $bufferEnd])
-                  ->orWhereBetween('end_datetime', [$bufferStart, $bufferEnd])
-                  ->orWhere(function ($q) use ($bufferStart, $bufferEnd) {
-                      $q->where('start_datetime', '<=', $bufferStart)
-                        ->where('end_datetime', '>=', $bufferEnd);
-                  });
-        })->where('status', '!=', 'cancelled')->exists();
+        return Appointment::where('doctor_id', $doctorId)
+            ->where(function ($query) use ($bufferStart, $bufferEnd) {
+                // If the new appointment timeframe (including buffers) overlaps with any existing booked timeframe
+                $query->where('start_datetime', '<', $bufferEnd)
+                      ->where('end_datetime', '>', $bufferStart);
+            })->where('status', '!=', 'cancelled')->exists();
     }
 }

@@ -52,6 +52,11 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['nullable', 'string', 'max:15'],
+            'age' => ['nullable', 'integer', 'min:1', 'max:120'],
+            'relation_with_child' => ['nullable', 'string', 'max:255'],
+            'address' => ['nullable', 'string', 'max:500'],
+            'medical_history' => ['nullable', 'string'],
         ]);
     }
 
@@ -67,6 +72,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'] ?? null,
+            'age' => $data['age'] ?? null,
+            'relation_with_child' => $data['relation_with_child'] ?? null,
+            'address' => $data['address'] ?? null,
+            'medical_history' => $data['medical_history'] ?? null,
         ]);
     }
 }

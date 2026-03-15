@@ -12,8 +12,8 @@ class CreateAppointmentsTable extends Migration
             $table->id();
 
             // Link to patients table (explicit foreign key)
-            $table->unsignedBigInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
+            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('set null');
 
             // Start & End time for easy conflict checking
             $table->dateTime('start_datetime');
