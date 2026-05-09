@@ -18,6 +18,8 @@ class Payment extends Model
         'amount',
         'currency',
         'status',
+        'invoice_number',
+        'notes',
     ];
 
     public function user()

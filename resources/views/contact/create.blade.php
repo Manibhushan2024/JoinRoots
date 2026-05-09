@@ -6,10 +6,15 @@
 <!-- Hero Section -->
 <div class="py-5 bg-primary text-white text-center position-relative overflow-hidden" style="background: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);">
     <div class="container position-relative z-index-1 py-5">
-        <h1 class="display-4 fw-bold mb-3">Get in Touch</h1>
+        <h1 class="display-4 fw-bold mb-3">Talk to Our Therapy Experts</h1>
         <p class="lead mx-auto" style="max-width: 600px; color: rgba(255,255,255,.8);">
-            We are here to support your child's journey. Reach out to us for appointments, inquiries, or any questions you might have.
+            Have questions about speech therapy, autism, ADHD or any developmental concern? Our team in Vikaspuri, Delhi is here to guide you — no pressure, just honest advice.
         </p>
+        <div style="margin-top:1.5rem;">
+            <a href="https://wa.me/919334892585?text=Hi%20JoinRoots%2C%20I%20have%20a%20question%20about%20therapy" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:white;font-weight:700;padding:.75rem 1.75rem;border-radius:50px;text-decoration:none;font-size:.95rem;">
+                <i class="fab fa-whatsapp fs-5"></i> Get Fastest Reply on WhatsApp
+            </a>
+        </div>
     </div>
     <!-- Decor -->
     <div class="position-absolute" style="top: -50px; left: -50px; width: 200px; height: 200px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>

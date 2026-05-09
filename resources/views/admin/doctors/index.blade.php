@@ -51,6 +51,9 @@
                             </td>
                             <td>{{ $doctor->display_order }}</td>
                             <td class="pe-4 text-end">
+                                <a href="{{ route('admin.doctors.schedule', $doctor) }}" class="btn btn-sm btn-outline-success shadow-sm me-1" title="View Schedule">
+                                    <i class="fas fa-calendar-alt"></i> Schedule
+                                </a>
                                 <a href="{{ route('admin.doctors.edit', $doctor) }}" class="btn btn-sm btn-outline-primary shadow-sm me-1" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>

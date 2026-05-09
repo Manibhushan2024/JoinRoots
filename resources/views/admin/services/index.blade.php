@@ -12,7 +12,7 @@
             <a href="{{ route('admin.contacts.index') }}" class="list-group-item list-group-item-action">Contacts</a>
         </div>
     </div>
-    
+
     <div class="col-md-9">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -30,8 +30,8 @@
                                 <th>ID</th>
                                 <th>Title</th>
                                 <th>Duration</th>
-                                <th>Online Price</th>
-                                <th>Offline Price</th>
+                                <th>Online Pricing</th>
+                                <th>Offline Pricing</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -41,8 +41,24 @@
                                 <td>{{ $service->id }}</td>
                                 <td>{{ $service->title }}</td>
                                 <td>{{ $service->duration_minutes }} min</td>
-                                <td>₹{{ number_format($service->online_price, 2) }}</td>
-                                <td>₹{{ number_format($service->offline_price, 2) }}</td>
+                                <td>
+                                    <div class="fw-semibold">&#8377;{{ number_format($service->online_price, 2) }}</div>
+                                    @if($service->has_online_discount)
+                                        <div class="small text-danger">Discount: -&#8377;{{ number_format($service->online_discount, 2) }}</div>
+                                        <div class="small fw-semibold text-success">Final: &#8377;{{ number_format($service->discounted_online_price, 2) }}</div>
+                                    @else
+                                        <div class="small text-muted">No discount</div>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="fw-semibold">&#8377;{{ number_format($service->offline_price, 2) }}</div>
+                                    @if($service->has_offline_discount)
+                                        <div class="small text-danger">Discount: -&#8377;{{ number_format($service->offline_discount, 2) }}</div>
+                                        <div class="small fw-semibold text-success">Final: &#8377;{{ number_format($service->discounted_offline_price, 2) }}</div>
+                                    @else
+                                        <div class="small text-muted">No discount</div>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.services.edit', $service) }}" class="btn btn-sm btn-warning">Edit</a>
                                     <form action="{{ route('admin.services.destroy', $service) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">

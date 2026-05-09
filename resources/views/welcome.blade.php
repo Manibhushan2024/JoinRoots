@@ -3,8 +3,45 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JoinRoots – Child Rehabilitation & Therapy Center</title>
-    <meta name="description" content="JoinRoots offers professional child rehabilitation, counselling, and therapy services in India. Book an appointment online or in-clinic today.">
+    <title>JoinRoots | Best Speech Therapy & Child Rehabilitation in Delhi | Vikaspuri</title>
+    <meta name="description" content="Delhi's trusted speech therapy & child rehabilitation center in Vikaspuri. RCI-certified therapists for Autism, Speech Delay, ADHD, Cerebral Palsy & special needs children. Book online or in-clinic. Govt. Registered.">
+    <meta name="keywords" content="speech therapy Delhi, speech therapist Vikaspuri, autism therapy Delhi, child rehabilitation Delhi, speech delay treatment Delhi, ADHD therapy Delhi, special needs child Delhi, occupational therapy Delhi, RCI certified therapist Delhi, best speech therapy West Delhi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url('/') }}">
+    <!-- Open Graph -->
+    <meta property="og:title" content="JoinRoots | Best Speech Therapy & Child Rehabilitation in Delhi">
+    <meta property="og:description" content="Delhi's trusted speech therapy & child rehabilitation center. RCI-certified therapists for Autism, Speech Delay, ADHD & special needs children in Vikaspuri, New Delhi.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:image" content="{{ asset('images/hero_therapy_image.png') }}">
+    <!-- Schema.org Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalOrganization",
+      "name": "JoinRoots Child Rehabilitation & Therapy Center",
+      "url": "{{ url('/') }}",
+      "telephone": "+919334892585",
+      "email": "connnectingroots.support@gmail.com",
+      "description": "Delhi's trusted speech therapy & child rehabilitation center for autism, speech delay, ADHD and special needs children.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "KG-2/46 G.F, near U.K Nursing Home",
+        "addressLocality": "Vikaspuri",
+        "addressRegion": "New Delhi",
+        "postalCode": "110018",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "28.6386",
+        "longitude": "77.0689"
+      },
+      "openingHours": "Mo-Sa 09:00-18:00",
+      "priceRange": "₹₹",
+      "medicalSpecialty": ["Speech Therapy", "Occupational Therapy", "Behavioral Therapy"]
+    }
+    </script>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:wght@400;600;700&display=swap" rel="stylesheet">
@@ -43,7 +80,7 @@
 
         /* ── Navbar ───────────────────────────────────── */
         .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            position: sticky; top: 0; left: 0; right: 0; z-index: 1000;
             background: rgba(255,255,255,.92);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border);
@@ -294,6 +331,13 @@
 </head>
 <body>
 
+<!-- ── Top Urgency Bar ───────────────────────────────────── -->
+<div style="background:linear-gradient(90deg,#2D6A4F,#52B788);color:white;text-align:center;padding:.55rem 1rem;font-size:.82rem;font-weight:600;letter-spacing:.02em;position:relative;z-index:1001;" id="top-bar">
+    <span>🟢 &nbsp;Slots available this week in Vikaspuri &nbsp;·&nbsp; Book now before they fill up &nbsp;·&nbsp;</span>
+    <a href="{{ route('appointments.create.public') }}" style="color:#FFD3A5;text-decoration:underline;font-weight:700;">Book Session →</a>
+    <button onclick="document.getElementById('top-bar').style.display='none'" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1rem;">✕</button>
+</div>
+
 <!-- ── Navbar ──────────────────────────────────────────── -->
 <nav class="navbar" id="navbar">
     <a href="{{ url('/') }}" class="brand" id="home-brand">
@@ -332,20 +376,24 @@
 <section class="hero" id="hero">
     <div class="hero-inner">
         <div class="hero-content">
-            <div class="hero-tag fade-up"><i class="fas fa-heart"></i> Trusted by 500+ Families</div>
+            <div class="hero-tag fade-up"><i class="fas fa-map-marker-alt"></i> Vikaspuri, New Delhi &nbsp;·&nbsp; RCI Certified &nbsp;·&nbsp; Govt. Registered</div>
             <h1 class="fade-up fade-up-d1">
-                Nurturing Every Child's <em>Growth & Healing</em>
+                Is Your Child Struggling with <em>Speech, Autism or Development?</em>
             </h1>
             <p class="fade-up fade-up-d2">
-                JoinRoots is a child rehabilitation center bringing together expert therapists and caring families. Book sessions online or in-clinic — we're here for every step of your child's journey.
+                Delhi's trusted child rehabilitation center — expert RCI-certified therapists for Speech Delay, Autism, ADHD, and Special Needs. Early therapy changes everything. Take the first step today.
             </p>
             <div class="hero-actions fade-up fade-up-d3">
                 <a href="{{ route('appointments.create.public') }}" class="btn btn-accent btn-lg" id="book-now-hero">
-                    <i class="fas fa-calendar-plus"></i> Book Appointment
+                    <i class="fas fa-calendar-plus"></i> Book a Session Now
                 </a>
-                <a href="#services" class="btn btn-ghost btn-lg" id="explore-services">
-                    <i class="fas fa-compass"></i> Explore Services
+                <a href="https://wa.me/919334892585?text=Hi%20JoinRoots%2C%20I%20want%20to%20know%20more%20about%20therapy%20for%20my%20child" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" id="whatsapp-hero">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Us
                 </a>
+            </div>
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:2rem;font-size:.82rem;color:var(--muted);">
+                <i class="fas fa-clock" style="color:var(--primary);"></i>
+                <span>Mon–Sat &nbsp;9 AM–6 PM &nbsp;|&nbsp; Online sessions available worldwide</span>
             </div>
             <div class="hero-stats fade-up fade-up-d3">
                 <div class="stat">
@@ -353,16 +401,16 @@
                     <div class="stat-label">Families Helped</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-num">15+</div>
-                    <div class="stat-label">Expert Therapists</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num">98%</div>
-                    <div class="stat-label">Satisfaction Rate</div>
+                    <div class="stat-num">RCI</div>
+                    <div class="stat-label">Certified Therapists</div>
                 </div>
                 <div class="stat">
                     <div class="stat-num">8+</div>
-                    <div class="stat-label">Years Experience</div>
+                    <div class="stat-label">Years in Delhi</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">4.9★</div>
+                    <div class="stat-label">Parent Rating</div>
                 </div>
             </div>
         </div>
@@ -473,6 +521,83 @@
     </div>
 </section>
 
+<!-- ── Conditions We Treat ───────────────────────────────── -->
+<section id="conditions" style="background:#fff;padding:5rem 2rem;">
+    <div class="container">
+        <div class="section-header center">
+            <div class="section-tag">Conditions We Treat</div>
+            <h2 class="section-title">Does Your Child Need Help With Any of These?</h2>
+            <p class="section-subtitle">Our expert therapists in Delhi are trained to support a wide range of childhood developmental conditions — the earlier the intervention, the better the outcome.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.25rem;margin-bottom:2.5rem;">
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#DCFCE7,#BBF7D0);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">🗣️</div>
+                    <div style="font-weight:700;color:#166534;font-size:.9rem;margin-bottom:.3rem;">Speech Delay</div>
+                    <div style="font-size:.75rem;color:#16A34A;">Late talking, unclear speech</div>
+                </div>
+            </a>
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">🧩</div>
+                    <div style="font-weight:700;color:#1E40AF;font-size:.9rem;margin-bottom:.3rem;">Autism (ASD)</div>
+                    <div style="font-size:.75rem;color:#2563EB;">Communication & social skills</div>
+                </div>
+            </a>
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">⚡</div>
+                    <div style="font-weight:700;color:#92400E;font-size:.9rem;margin-bottom:.3rem;">ADHD</div>
+                    <div style="font-size:.75rem;color:#D97706;">Attention, focus & behaviour</div>
+                </div>
+            </a>
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">🦽</div>
+                    <div style="font-weight:700;color:#4C1D95;font-size:.9rem;margin-bottom:.3rem;">Cerebral Palsy</div>
+                    <div style="font-size:.75rem;color:#7C3AED;">Motor & speech support</div>
+                </div>
+            </a>
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#FFE4E6,#FECDD3);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">💛</div>
+                    <div style="font-weight:700;color:#881337;font-size:.9rem;margin-bottom:.3rem;">Down Syndrome</div>
+                    <div style="font-size:.75rem;color:#E11D48;">Developmental & speech</div>
+                </div>
+            </a>
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#CCFBF1,#99F6E4);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">📚</div>
+                    <div style="font-weight:700;color:#134E4A;font-size:.9rem;margin-bottom:.3rem;">Learning Disability</div>
+                    <div style="font-size:.75rem;color:#0D9488;">Dyslexia, dyscalculia</div>
+                </div>
+            </a>
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#FFF7ED,#FED7AA);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">🎯</div>
+                    <div style="font-weight:700;color:#9A3412;font-size:.9rem;margin-bottom:.3rem;">Stammering / Fluency</div>
+                    <div style="font-size:.75rem;color:#EA580C;">Stuttering, cluttering</div>
+                </div>
+            </a>
+            <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
+                <div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:2rem;margin-bottom:.6rem;">🌟</div>
+                    <div style="font-weight:700;color:#14532D;font-size:.9rem;margin-bottom:.3rem;">Other Special Needs</div>
+                    <div style="font-size:.75rem;color:#16A34A;">Any developmental concern</div>
+                </div>
+            </a>
+        </div>
+        <div style="background:linear-gradient(135deg,#EAF5EE,#F0FFF4);border:1.5px solid #BBF7D0;border-radius:16px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+            <div style="width:48px;height:48px;background:var(--primary);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.4rem;flex-shrink:0;"><i class="fas fa-lightbulb"></i></div>
+            <div style="flex:1;">
+                <div style="font-weight:700;color:var(--dark);margin-bottom:.2rem;">Early Intervention is Key</div>
+                <div style="font-size:.88rem;color:var(--muted);">Research shows that children who receive therapy before age 5 show significantly better outcomes. Don't wait — every week matters.</div>
+            </div>
+            <a href="{{ route('appointments.create.public') }}" class="btn btn-primary" style="flex-shrink:0;"><i class="fas fa-calendar-plus"></i> Book Now</a>
+        </div>
+    </div>
+</section>
+
 <!-- ── Services ─────────────────────────────────────────── -->
 <section id="services">
     <div class="container">
@@ -503,9 +628,28 @@
                         <div style="width:44px;height:44px;border-radius:12px;background:{{ $service->color }}18;color:{{ $service->color }};display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:.85rem;"><i class="{{ $service->icon }}"></i></div>
                         <h3 style="font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.4rem;">{{ $service->title }}</h3>
                         <p style="font-size:.82rem;color:var(--muted);line-height:1.55;flex:1;margin-bottom:1rem;">{{ Str::limit($service->description, 100) }}</p>
-                        <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:.85rem;">
-                            <span style="font-size:.78rem;color:var(--muted);">Online &amp; Offline</span>
-                            <span style="font-weight:700;color:{{ $service->color }};font-size:.92rem;">From ₹{{ number_format($service->offline_price, 0) }}</span>
+                        <div style="border-top:1px solid var(--border);padding-top:.85rem;">
+                            <div style="font-size:.78rem;color:var(--muted);margin-bottom:.45rem;">Consultation Fee</div>
+                            <div style="display:grid;gap:.35rem;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;gap:.75rem;">
+                                    <span style="font-size:.78rem;color:var(--muted);">Online</span>
+                                    <span style="text-align:right;">
+                                        @if($service->has_online_discount)
+                                            <span style="font-size:.78rem;color:var(--muted);text-decoration:line-through;margin-right:.35rem;">&#8377;{{ number_format($service->online_price, 0) }}</span>
+                                        @endif
+                                        <span style="font-weight:700;color:{{ $service->color }};font-size:.92rem;">&#8377;{{ number_format($service->discounted_online_price, 0) }}</span>
+                                    </span>
+                                </div>
+                                <div style="display:flex;justify-content:space-between;align-items:center;gap:.75rem;">
+                                    <span style="font-size:.78rem;color:var(--muted);">In-Clinic</span>
+                                    <span style="text-align:right;">
+                                        @if($service->has_offline_discount)
+                                            <span style="font-size:.78rem;color:var(--muted);text-decoration:line-through;margin-right:.35rem;">&#8377;{{ number_format($service->offline_price, 0) }}</span>
+                                        @endif
+                                        <span style="font-weight:700;color:{{ $service->color }};font-size:.92rem;">&#8377;{{ number_format($service->discounted_offline_price, 0) }}</span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div style="display:flex;align-items:center;gap:.4rem;background:{{ $service->color }};color:white;font-size:.8rem;font-weight:700;padding:.5rem 1rem;border-radius:50px;margin-top:.85rem;justify-content:center;">
                             <i class="fas fa-calendar-plus"></i> Book This Session
@@ -603,6 +747,83 @@
         </div>
     </div>
 </section>
+
+<!-- ── FAQ ───────────────────────────────────────────────── -->
+<section id="faq" style="background:var(--bg);padding:5rem 2rem;">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;" class="faq-layout">
+            <div>
+                <div class="section-tag">FAQ</div>
+                <h2 class="section-title">Questions Parents Ask Us</h2>
+                <p class="section-subtitle" style="margin-bottom:2rem;">We understand your concerns. Here are honest answers to the most common questions from Delhi parents.</p>
+                <a href="https://wa.me/919334892585?text=Hi%20JoinRoots%2C%20I%20have%20a%20question%20about%20therapy%20for%20my%20child" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:white;font-weight:700;padding:.85rem 1.75rem;border-radius:50px;text-decoration:none;font-size:.95rem;">
+                    <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i> Ask on WhatsApp
+                </a>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+                <details style="background:white;border-radius:14px;border:1px solid var(--border);overflow:hidden;" open>
+                    <summary style="padding:1.25rem 1.5rem;font-weight:700;color:var(--dark);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:.95rem;">
+                        At what age should I start speech therapy for my child?
+                        <i class="fas fa-chevron-down" style="color:var(--primary);font-size:.8rem;transition:transform .3s;"></i>
+                    </summary>
+                    <div style="padding:0 1.5rem 1.25rem;color:var(--muted);font-size:.9rem;line-height:1.7;border-top:1px solid var(--border);">
+                        The earlier, the better. Children as young as 6 months can start early intervention. However, most therapy begins between 18 months–5 years. If your child is not meeting speech milestones, don't wait. Early therapy gives the best results.
+                    </div>
+                </details>
+                <details style="background:white;border-radius:14px;border:1px solid var(--border);overflow:hidden;">
+                    <summary style="padding:1.25rem 1.5rem;font-weight:700;color:var(--dark);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:.95rem;">
+                        Are your therapists RCI certified?
+                        <i class="fas fa-chevron-down" style="color:var(--primary);font-size:.8rem;"></i>
+                    </summary>
+                    <div style="padding:0 1.5rem 1.25rem;color:var(--muted);font-size:.9rem;line-height:1.7;border-top:1px solid var(--border);">
+                        Yes. All our therapists are certified by the Rehabilitation Council of India (RCI) — the national regulatory body for rehabilitation professionals in India. You can trust that your child is in qualified, professional hands.
+                    </div>
+                </details>
+                <details style="background:white;border-radius:14px;border:1px solid var(--border);overflow:hidden;">
+                    <summary style="padding:1.25rem 1.5rem;font-weight:700;color:var(--dark);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:.95rem;">
+                        Do you offer online therapy for children outside Delhi?
+                        <i class="fas fa-chevron-down" style="color:var(--primary);font-size:.8rem;"></i>
+                    </summary>
+                    <div style="padding:0 1.5rem 1.25rem;color:var(--muted);font-size:.9rem;line-height:1.7;border-top:1px solid var(--border);">
+                        Absolutely. We offer secure video-based online sessions for families across India and worldwide. Online therapy is equally effective for many conditions, especially speech therapy, behavioural therapy, and parent coaching.
+                    </div>
+                </details>
+                <details style="background:white;border-radius:14px;border:1px solid var(--border);overflow:hidden;">
+                    <summary style="padding:1.25rem 1.5rem;font-weight:700;color:var(--dark);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:.95rem;">
+                        What is the cost of speech therapy in Delhi at JoinRoots?
+                        <i class="fas fa-chevron-down" style="color:var(--primary);font-size:.8rem;"></i>
+                    </summary>
+                    <div style="padding:0 1.5rem 1.25rem;color:var(--muted);font-size:.9rem;line-height:1.7;border-top:1px solid var(--border);">
+                        Our fees are transparent and affordable — no hidden charges. Prices vary by service type and session mode (online/in-clinic). Check our Services section above for exact pricing, or WhatsApp us for a personalised quote.
+                    </div>
+                </details>
+                <details style="background:white;border-radius:14px;border:1px solid var(--border);overflow:hidden;">
+                    <summary style="padding:1.25rem 1.5rem;font-weight:700;color:var(--dark);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:.95rem;">
+                        How many sessions will my child need?
+                        <i class="fas fa-chevron-down" style="color:var(--primary);font-size:.8rem;"></i>
+                    </summary>
+                    <div style="padding:0 1.5rem 1.25rem;color:var(--muted);font-size:.9rem;line-height:1.7;border-top:1px solid var(--border);">
+                        Every child is different. After an initial assessment, our therapist will create a personalised therapy plan and give you a realistic timeline. Most children show measurable progress within 8–12 weeks of consistent therapy.
+                    </div>
+                </details>
+                <details style="background:white;border-radius:14px;border:1px solid var(--border);overflow:hidden;">
+                    <summary style="padding:1.25rem 1.5rem;font-weight:700;color:var(--dark);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:.95rem;">
+                        Can parents attend the therapy session?
+                        <i class="fas fa-chevron-down" style="color:var(--primary);font-size:.8rem;"></i>
+                    </summary>
+                    <div style="padding:0 1.5rem 1.25rem;color:var(--muted);font-size:.9rem;line-height:1.7;border-top:1px solid var(--border);">
+                        Yes, and we encourage it. Parent involvement is a crucial part of our approach. We train parents with home exercises and techniques so progress continues between sessions.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+@media(max-width:860px){.faq-layout{grid-template-columns:1fr!important;gap:2rem!important;}}
+details summary::-webkit-details-marker{display:none}
+details[open] summary i.fa-chevron-down{transform:rotate(180deg);}
+</style>
 
 <!-- ── Team ───────────────────────────────────────────── -->
 @if($doctors->count() > 0)
@@ -730,18 +951,64 @@
 </section>
 @endif
 
+<!-- ── Location + Map CTA ────────────────────────────────── -->
+<section style="padding:0;background:var(--bg);">
+    <div class="container" style="padding:4rem 0;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;" class="map-layout">
+            <div>
+                <div class="section-tag">Find Us</div>
+                <h2 class="section-title">Visit Us in Vikaspuri, New Delhi</h2>
+                <p style="color:var(--muted);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem;">
+                    We are conveniently located in Vikaspuri, West Delhi — easily accessible from Dwarka, Janakpuri, Uttam Nagar, Paschim Vihar, and Rajouri Garden. Online sessions available for pan-India families.
+                </p>
+                <div style="display:flex;flex-direction:column;gap:.85rem;margin-bottom:1.75rem;">
+                    <div style="display:flex;align-items:flex-start;gap:.75rem;">
+                        <i class="fas fa-map-marker-alt" style="color:var(--primary);margin-top:3px;width:18px;"></i>
+                        <span style="font-size:.9rem;color:var(--text);">KG-2/46 G.F, near U.K Nursing Home, Vikaspuri, New Delhi – 110018</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:.75rem;">
+                        <i class="fas fa-phone" style="color:var(--primary);width:18px;"></i>
+                        <a href="tel:+919334892585" style="font-size:.9rem;color:var(--text);text-decoration:none;font-weight:600;">+91 93348 92585</a>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:.75rem;">
+                        <i class="fas fa-clock" style="color:var(--primary);width:18px;"></i>
+                        <span style="font-size:.9rem;color:var(--text);">Monday – Saturday, 9:00 AM – 6:00 PM</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:.75rem;">
+                        <i class="fab fa-whatsapp" style="color:#25D366;width:18px;"></i>
+                        <a href="https://wa.me/919334892585?text=Hi%20JoinRoots%2C%20I%20want%20to%20book%20a%20session" target="_blank" rel="noopener" style="font-size:.9rem;color:#25D366;text-decoration:none;font-weight:700;">WhatsApp for quick response</a>
+                    </div>
+                </div>
+                <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+                    <a href="{{ route('appointments.create.public') }}" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> Book Session</a>
+                    <a href="https://wa.me/919334892585?text=Hi%20JoinRoots%2C%20I%20want%20to%20know%20more" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;background:#25D366;color:white;font-weight:600;padding:.6rem 1.4rem;border-radius:50px;text-decoration:none;font-size:.875rem;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+            <div style="border-radius:20px;overflow:hidden;box-shadow:var(--shadow-md);">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.5!2d77.0689!3d28.6386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM4JzE5LjAiTiA3N8KwMDQnMDguMCJF!5e0!3m2!1sen!2sin!4v1"
+                    width="100%" height="320" style="border:0;display:block;" allowfullscreen="" loading="lazy"
+                    title="JoinRoots location in Vikaspuri New Delhi">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+<style>@media(max-width:860px){.map-layout{grid-template-columns:1fr!important;}}</style>
+
 <!-- ── CTA ──────────────────────────────────────────────── -->
 <section class="cta-section" id="cta">
-    <h2>Ready to Begin Your Child's Journey?</h2>
-    <p>Take the first step today. Book a free initial consultation and discover how we can help your family thrive.</p>
+    <h2>Ready to Start Your Child's Therapy Journey?</h2>
+    <p>Book a session today and take the first step towards better communication, development, and a happier life for your child. Our expert team in Vikaspuri, Delhi is ready for you.</p>
     <div class="cta-buttons">
         <a href="{{ route('appointments.create.public') }}" class="btn btn-accent btn-lg" id="book-cta">
-            <i class="fas fa-calendar-plus"></i> Book Free Consultation
+            <i class="fas fa-calendar-plus"></i> Book a Session Now
         </a>
-        <a href="{{ route('contact.create') }}" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.4);" id="contact-cta">
-            <i class="fas fa-phone"></i> Talk to Us
+        <a href="https://wa.me/919334892585?text=Hi%20JoinRoots%2C%20I%20want%20to%20discuss%20therapy%20for%20my%20child" target="_blank" rel="noopener" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.4);" id="whatsapp-cta">
+            <i class="fab fa-whatsapp"></i> WhatsApp Us
         </a>
     </div>
+    <p style="margin-top:1.5rem;font-size:.82rem;color:rgba(255,255,255,.5);">No spam. No pressure. Just expert guidance for your child.</p>
 </section>
 
 <!-- ── Footer ───────────────────────────────────────────── -->
@@ -757,12 +1024,14 @@
                 <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8; font-weight: bold;">Udyami Registration:<br/>UDYAM-DL-11-0152999</p>
             </div>
             <div class="footer-col">
-                <h4>Services</h4>
+                <h4>Conditions We Treat</h4>
                 <ul class="footer-links">
-                    <li><a href="#services">Child Counselling</a></li>
-                    <li><a href="#services">Family Therapy</a></li>
-                    <li><a href="#services">Special Needs</a></li>
-                    <li><a href="#services">Parent Coaching</a></li>
+                    <li><a href="#conditions">Speech Delay / Late Talking</a></li>
+                    <li><a href="#conditions">Autism (ASD)</a></li>
+                    <li><a href="#conditions">ADHD</a></li>
+                    <li><a href="#conditions">Cerebral Palsy</a></li>
+                    <li><a href="#conditions">Down Syndrome</a></li>
+                    <li><a href="#conditions">Stammering / Fluency</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -787,14 +1056,42 @@
         <div class="footer-bottom">
             <p>© {{ date('Y') }} JoinRoots. All rights reserved. Made with ❤️ for every child.</p>
             <div class="social-links">
-                <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.facebook.com/joinroots" target="_blank" rel="noopener" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/joinroots" target="_blank" rel="noopener" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/919334892585?text=Hi%20JoinRoots" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp" style="background:#25D366;"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.youtube.com/@joinroots" target="_blank" rel="noopener" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </div>
 </footer>
+
+<!-- ── Floating WhatsApp Button ──────────────────────────── -->
+<a href="https://wa.me/919334892585?text=Hi%20JoinRoots%2C%20I%20want%20to%20know%20more%20about%20therapy%20for%20my%20child"
+   target="_blank" rel="noopener"
+   aria-label="Chat on WhatsApp"
+   style="
+       position:fixed; bottom:24px; right:24px; z-index:9999;
+       width:60px; height:60px; border-radius:50%;
+       background:#25D366; color:white;
+       display:flex; align-items:center; justify-content:center;
+       font-size:1.6rem; text-decoration:none;
+       box-shadow:0 6px 24px rgba(37,211,102,.5);
+       transition:transform .2s, box-shadow .2s;
+       animation: waPulse 2.5s infinite;
+   "
+   onmouseover="this.style.transform='scale(1.12)'" onmouseout="this.style.transform='scale(1)'">
+    <i class="fab fa-whatsapp"></i>
+</a>
+<!-- WhatsApp tooltip -->
+<div style="position:fixed;bottom:92px;right:24px;z-index:9998;background:#1B2B25;color:white;font-size:.78rem;font-weight:600;padding:.4rem .85rem;border-radius:8px;pointer-events:none;opacity:0;transition:opacity .3s;" id="wa-tooltip">
+    Chat with us!
+</div>
+<style>
+@keyframes waPulse {
+    0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5);}
+    50%{box-shadow:0 6px 32px rgba(37,211,102,.85),0 0 0 12px rgba(37,211,102,.12);}
+}
+</style>
 
 <script>
     // Navbar scroll effect

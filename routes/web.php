@@ -56,6 +56,9 @@ Route::post('password/otp/reset', [OtpPasswordResetController::class, 'resetPass
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+// Razorpay Webhook — must be public (no auth, no CSRF)
+Route::post('/razorpay/webhook', [App\Http\Controllers\PaymentController::class, 'webhook'])->name('razorpay.webhook');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -63,6 +66,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/payment/create', [App\Http\Controllers\PaymentController::class, 'create'])->name('payment.create');
     Route::post('/payment/store', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
+    Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
@@ -71,6 +75,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::resource('appointments', AdminAppointmentController::class);
     Route::resource('contacts', AdminContactController::class)->only(['index', 'show', 'destroy']);
     Route::resource('doctors', AdminDoctorController::class);
+    Route::get('doctors/{doctor}/schedule', [AdminDoctorController::class, 'schedule'])->name('doctors.schedule');
+    Route::put('doctors/{doctor}/schedule', [AdminDoctorController::class, 'updateSchedule'])->name('doctors.update-schedule');
     Route::resource('reviews', AdminReviewController::class);
     Route::post('reviews/{review}/approve', [AdminReviewController::class, 'toggleApprove'])->name('reviews.approve');
     Route::resource('blog', AdminBlogController::class);
