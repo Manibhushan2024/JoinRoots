@@ -35,6 +35,10 @@ CMD ["sh", "-c", \
   "php artisan package:discover --ansi && \
    php artisan migrate --force && \
    php artisan db:seed --class=AdminSeeder --force && \
+   php artisan db:seed --class=ServiceSeeder --force && \
+   php artisan db:seed --class=DoctorSeeder --force && \
+   php artisan db:seed --class=ReviewSeeder --force && \
+   php artisan db:seed --class=BlogSeeder --force && \
    php artisan config:cache && \
    php artisan route:cache && \
    php artisan view:cache && \

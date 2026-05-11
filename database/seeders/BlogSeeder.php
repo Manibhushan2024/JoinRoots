@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class BlogSeeder extends Seeder {
     public function run(): void {
-        BlogPost::truncate();
+        if (BlogPost::count() > 0) return;
         $posts = [
             [
                 'title'=>'Early Signs of Autism in Children: What Parents Should Watch For',

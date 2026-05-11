@@ -2,13 +2,10 @@
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Service;
-use Illuminate\Support\Facades\DB;
 
 class ServiceSeeder extends Seeder {
     public function run(): void {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Service::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        if (Service::count() > 0) return;
         $services = [
             ['title'=>'Speech Therapy','description'=>'Comprehensive speech-language therapy for children with articulation disorders, speech delays, stuttering, cluttering, and voice disorders. Our certified SLPs use play-based methods tailored to each child.','offline_price'=>1200,'online_price'=>900,'category'=>'Speech & Language','icon'=>'fas fa-microphone-alt','color'=>'#2D6A4F'],
             ['title'=>'Applied Behaviour Analysis (ABA)','description'=>'Evidence-based ABA therapy for children with Autism Spectrum Disorder. Our BCBAs design intensive, personalised programs to improve communication, social skills, and daily living.','offline_price'=>1500,'online_price'=>1200,'category'=>'Behavioural','icon'=>'fas fa-brain','color'=>'#7C3AED'],

@@ -5,7 +5,7 @@ use App\Models\Review;
 
 class ReviewSeeder extends Seeder {
     public function run(): void {
-        Review::truncate();
+        if (Review::count() > 0) return;
         $reviews = [
             ['name'=>'Rekha Gupta','role'=>'Mother of an 8-year-old','location'=>'South Delhi','rating'=>5,'review_text'=>'My son used to struggle with social anxiety and meltdowns. After 4 months of ASD therapy and parent coaching at Connect Roots, the change is remarkable. The team is incredibly patient and genuinely cares. Dr. Priya is a gem.','avatar_color'=>'#2D6A4F','is_approved'=>true,'display_order'=>1],
             ['name'=>'Amit Verma','role'=>'Father of a 6-year-old','location'=>'Dwarka, Delhi','rating'=>5,'review_text'=>'We joined the online speech therapy sessions as we couldn\'t manage daily travel. Ritika ma\'am is fantastic — my daughter\'s articulation has improved dramatically in just 3 months. Highly recommend!','avatar_color'=>'#7C3AED','is_approved'=>true,'display_order'=>2],

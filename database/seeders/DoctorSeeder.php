@@ -2,13 +2,10 @@
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Doctor;
-use Illuminate\Support\Facades\DB;
 
 class DoctorSeeder extends Seeder {
     public function run(): void {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Doctor::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        if (Doctor::count() > 0) return;
         $doctors = [
             ['name'=>'Dr. Priya Sharma','designation'=>'Child Psychologist & Lead Therapist','qualification'=>'Ph.D. Clinical Psychology, NIMHANS Bangalore','bio'=>'Dr. Priya has 12 years of experience working with children with autism, ADHD, and anxiety disorders. She specialises in play therapy, CBT, and family-based interventions.','specializations'=>'ASD Therapy, ADHD, Child Counselling, CBT','experience_years'=>12,'display_order'=>1],
             ['name'=>'Dr. Anil Kumar','designation'=>'Developmental Paediatrician','qualification'=>'MD Paediatrics, AIIMS Delhi | Fellowship in Developmental Paediatrics','bio'=>'Dr. Anil leads our diagnostic and early intervention team. With over 18 years at AIIMS and private practice, he provides detailed developmental assessments and treatment roadmaps.','specializations'=>'Early Intervention, ASD Diagnosis, ADHD, Developmental Screening','experience_years'=>18,'display_order'=>2],
