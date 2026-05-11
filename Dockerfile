@@ -25,13 +25,14 @@ COPY . .
 
 RUN mkdir -p storage/framework/sessions storage/framework/views \
     storage/framework/cache/data storage/logs bootstrap/cache \
+    && rm -f bootstrap/cache/packages.php bootstrap/cache/services.php \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 10000
 
 CMD ["sh", "-c", \
-  "php artisan config:clear && \
+  "php artisan package:discover --ansi && \
    php artisan migrate --force && \
    php artisan config:cache && \
    php artisan route:cache && \
