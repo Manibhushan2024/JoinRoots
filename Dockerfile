@@ -34,6 +34,7 @@ EXPOSE 10000
 CMD ["sh", "-c", \
   "php artisan package:discover --ansi && \
    php artisan migrate --force && \
+   php artisan db:seed --class=AdminSeeder --force && \
    php artisan config:cache && \
    php artisan route:cache && \
    php artisan view:cache && \
