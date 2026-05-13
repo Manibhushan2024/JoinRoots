@@ -299,15 +299,36 @@
 
         /* ── Responsive ───────────────────────────────── */
         @media (max-width: 900px) {
-            .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+            .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
             .hero-visual { order: -1; max-width: 480px; margin: 0 auto; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
             .nav-links { display: none; }
             .hamburger { display: block; }
+            .floating-card { display: none !important; }
+            .nav-actions .btn { font-size: .78rem; padding: .5rem .9rem; }
         }
         @media (max-width: 600px) {
             .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .hero-stats { gap: 1.5rem; }
+            .hero-stats { gap: 1.25rem; }
+            .hero { padding: 80px 1rem 3rem; }
+            section { padding: 4rem 1rem; }
+            .hero-actions { flex-direction: column; }
+            .hero-actions .btn { width: 100%; justify-content: center; text-align: center; }
+            .hero h1 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+            .hero-card-main { padding: 1.25rem; }
+            .promo-banner-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-buttons .btn { width: 100%; max-width: 320px; justify-content: center; }
+            .top-bar-inner { padding-right: 2.5rem; }
+            .navbar { padding: 0 1rem; }
+            .nav-actions { gap: .4rem; }
+            .nav-actions .btn { font-size: .72rem; padding: .45rem .7rem; }
+            .hero-stats .stat-num { font-size: 1.25rem; }
+            .team-grid { grid-template-columns: 1fr !important; }
+            .conditions-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 400px) {
+            .nav-actions { display: none; }
         }
 
         /* ── Animations ───────────────────────────────── */
@@ -332,10 +353,10 @@
 <body>
 
 <!-- ── Top Urgency Bar ───────────────────────────────────── -->
-<div style="background:linear-gradient(90deg,#2D6A4F,#52B788);color:white;text-align:center;padding:.55rem 1rem;font-size:.82rem;font-weight:600;letter-spacing:.02em;position:relative;z-index:1001;" id="top-bar">
-    <span>🟢 &nbsp;Slots available this week in Vikaspuri &nbsp;·&nbsp; Book now before they fill up &nbsp;·&nbsp;</span>
+<div style="background:linear-gradient(90deg,#2D6A4F,#52B788);color:white;text-align:center;padding:.55rem 2.5rem .55rem 1rem;font-size:.82rem;font-weight:600;letter-spacing:.02em;position:relative;z-index:1001;" id="top-bar">
+    <span class="top-bar-inner" style="display:inline;">🟢 &nbsp;Slots available this week &nbsp;·&nbsp; </span>
     <a href="{{ route('appointments.create.public') }}" style="color:#FFD3A5;text-decoration:underline;font-weight:700;">Book Session →</a>
-    <button onclick="document.getElementById('top-bar').style.display='none'" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1rem;">✕</button>
+    <button onclick="document.getElementById('top-bar').style.display='none'" style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1rem;line-height:1;">✕</button>
 </div>
 
 <!-- ── Navbar ──────────────────────────────────────────── -->
@@ -471,7 +492,7 @@
         <div style="position:absolute;top:-80px;right:-80px;width:350px;height:350px;border-radius:50%;background:rgba(82,183,136,.08);pointer-events:none;"></div>
         <div style="position:absolute;bottom:-60px;left:-60px;width:250px;height:250px;border-radius:50%;background:rgba(244,162,97,.06);pointer-events:none;"></div>
         <div class="container">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;align-items:center;">
+            <div class="promo-banner-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;align-items:center;">
                 <!-- Left: Branding -->
                 <div style="color:white;">
                     <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(82,183,136,.2);border:1px solid rgba(82,183,136,.3);color:#52B788;padding:.35rem 1rem;border-radius:50px;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1rem;">🌱 Govt. Registered Center</div>
@@ -529,7 +550,7 @@
             <h2 class="section-title">Does Your Child Need Help With Any of These?</h2>
             <p class="section-subtitle">Our expert therapists in Delhi are trained to support a wide range of childhood developmental conditions — the earlier the intervention, the better the outcome.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.25rem;margin-bottom:2.5rem;">
+        <div class="conditions-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2.5rem;">
             <a href="{{ route('appointments.create.public') }}" style="text-decoration:none;">
                 <div style="background:linear-gradient(135deg,#DCFCE7,#BBF7D0);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
                     <div style="font-size:2rem;margin-bottom:.6rem;">🗣️</div>
@@ -1100,16 +1121,32 @@ details[open] summary i.fa-chevron-down{transform:rotate(180deg);}
     });
 
     // Hamburger
-    document.getElementById('hamburger').addEventListener('click', () => {
-        const nl = document.getElementById('nav-links');
-        nl.style.display = nl.style.display === 'flex' ? 'none' : 'flex';
-        nl.style.flexDirection = 'column';
-        nl.style.position = 'absolute';
-        nl.style.top = '70px'; nl.style.left = '0'; nl.style.right = '0';
-        nl.style.background = 'white';
-        nl.style.padding = '1rem 2rem';
-        nl.style.boxShadow = '0 8px 32px rgba(0,0,0,.1)';
-        nl.style.gap = '1rem';
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    let menuOpen = false;
+    hamburger.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '70px';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.background = 'white';
+            navLinks.style.padding = '1rem 1.5rem 1.5rem';
+            navLinks.style.boxShadow = '0 8px 32px rgba(0,0,0,.12)';
+            navLinks.style.gap = '.75rem';
+            navLinks.style.zIndex = '999';
+            hamburger.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+            navLinks.style.display = 'none';
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => { menuOpen = false; navLinks.style.display = 'none'; hamburger.innerHTML = '<i class="fas fa-bars"></i>'; });
     });
 
     // Smooth scroll for anchor links
